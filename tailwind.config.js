@@ -1,11 +1,18 @@
-/** @type {import('tailwindcss').Config} */
-export default {
+// tailwind.config.js
+module.exports = {
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    './src/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'custom-bg': '#E9DFE7', // Define el color personalizado
+        'custom-hero': '#FFF3E3',
+        'custom-btn': '#C06DA7',
+        'custom-primary': '#f10984',
+
+      },
+    },
   },
   plugins: [],
-}
+};

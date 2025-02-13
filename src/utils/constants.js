@@ -1,0 +1,1 @@
+export const ITEMS_PER_PAGE = 16; // 4 filas de 4 productos

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { authAPI } from '../../utils/api';
+
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -22,30 +24,18 @@ function Register() {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:3001/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message);
-      }
-
-      login(data.token);
-      navigate('/profile');
-    } catch (err) {
-      setError(err.message);
-    }
-  };
+          const response = await authAPI.register({
+            name: formData.name,
+            email: formData.email,
+            password: formData.password
+          });
+    
+          login(response.token, response.user);
+          navigate('/profile');
+        } catch (err) {
+          setError(err.message);
+        }
+      };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">

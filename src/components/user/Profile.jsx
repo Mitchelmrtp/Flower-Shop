@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { authAPI } from '../../utils/api';
 
 function Profile() {
   const { token, logout } = useAuth();
@@ -10,17 +11,7 @@ function Profile() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:3001/api/profile', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-
-        if (!response.ok) {
-          throw new Error('No autorizado');
-        }
-
-        const data = await response.json();
+        const data = await authAPI.getProfile(token);
         setUserData(data);
       } catch (error) {
         console.error('Error:', error);
